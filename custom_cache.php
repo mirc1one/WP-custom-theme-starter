@@ -41,30 +41,3 @@ function delete_custom_transient($key, $group) {
 
     return false;
 }
-
-// adding actions when updating or inserting a new post
-add_action('save_post', 'hook_on_insert_post', 10, 2);
-function hook_on_insert_post($post_id, $post) {
-    // check if it's the real post and not a revision
-    $is_revision = wp_is_post_revision($post);
-
-    if ($is_revision) {
-        if (get_post_type($is_revision) === 'contest') {
-            delete_custom_transient('results_query', 'widget_sidebar');
-            delete_custom_transient('upcoming_query', 'widget_sidebar');
-        }
-    } else {
-        if ($post->post_type === 'contest') {
-            delete_custom_transient('results_query', 'widget_sidebar');
-            delete_custom_transient('upcoming_query', 'widget_sidebar');
-        }
-    }
-}
-
-add_action('post_updated', 'hook_on_contest_update', 10, 2);
-function hook_on_contest_update($post_id, $post) {
-    if ($post->post_type === 'contest') {
-        delete_custom_transient('results_query', 'widget_sidebar');
-        delete_custom_transient('upcoming_query', 'widget_sidebar');
-    }
-}

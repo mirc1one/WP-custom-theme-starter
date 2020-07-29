@@ -574,13 +574,7 @@ function twentytwenty_get_elements_array() {
 	return apply_filters( 'twentytwenty_get_elements_array', $elements );
 }
 
-// debug
-function debug($value, $die = false) {
-	echo "<pre>";
-	var_dump($value);
-	echo "</pre>";
-
-	if ($die) {
-		die('@@@@@@@@@');
-	}
-}
+// Remove the pesky customize support thing showing up
+add_action('admin_bar_menu', function() {
+    remove_action('wp_before_admin_bar_render', 'wp_customize_support_script');
+}, 50);

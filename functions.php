@@ -6,7 +6,7 @@ define('WP_IN_DEVELOPMENT', false);
 if (WP_IN_DEVELOPMENT === true) {
 	$theme_version = time();
 } else {
-	$theme_version = '1.1.0';
+	$theme_version = '1.0.0';
 }
 
 // used for debugging
@@ -23,7 +23,7 @@ function ip_check($check_ip) {
 }
 
 function debug(...$value) {
-    if (ip_check('109.96.76.114')) {
+    if (ip_check('YOUR_IP')) {
         if (is_array($value)) {
             foreach ($value as $val) {
                 echo "<pre>";

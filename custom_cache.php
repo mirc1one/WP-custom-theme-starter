@@ -38,24 +38,6 @@ function delete_custom_cache($key, $group = '', $paged = false) {
     return false;
 }
 
-// in order to clear individual contests & fighters tickets cache we must know their ids
-// we cannot clear these without knowing their id, and can't call a general function when we need to
-// iterate over ids; this function saves in memory over 1hour lifespan all cached tickets
-// $key will be the id identifier, $group will be split in 2, one for fighters and one for contests
-function custom_cache_query_tickets_ids_tracker($key, $group, $lifespan = HOUR_IN_SECONDS) {
-    $get_cache = wp_cache_get('ids_tickets_tracker', $group);
-    $get_cache = maybe_unserialize($get_cache);
-
-    if (empty($get_cache)) 
-        $get_cache = array();
-
-    if (!in_array($key, $get_cache)) {
-        array_push($get_cache, $key);
-
-        wp_cache_set('ids_tickets_tracker', maybe_serialize($get_cache), $group, $lifespan);
-    }
-}
-
 function delete_pagination_custom_cache($key, $group = '') {
     $get_pagination_keys = get_redis_keys($key, $group);
 

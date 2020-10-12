@@ -89,3 +89,22 @@ function get_file_type($extension) {
 
     return 'unknown';
 }
+
+// remove pesky unwanted paragraphs
+// mostly used in conjunction with wpautop for headlines
+// when they require some styling like italics, bold or underlines
+function remove_paragraphs($string, $brs = true) {
+	if (!$brs) 
+		return strip_tags($string, '<b><strong><i><em><u><a>');
+	
+	return strip_tags($string, '<b><strong><br><i><em><u><a>');
+}
+
+// Get post attached featured image
+function get_featured_image_alt($post_id) {
+	return get_post_meta(
+		get_post_thumbnail_id($post_id), 
+		'_wp_attachment_image_alt', 
+		true
+	); 
+}

@@ -38,21 +38,6 @@ function debug(...$value) {
     }
 }
 
-// custom check caching queries, if the key-identifier combination was not set,
-// it caches the item then returns it, if it was set it just reads it from the cache
-function custom_cache($key, $callback) {
-    $get_cache = wp_cache_get($key, '');
-
-    if (empty($get_cache)) {
-        $query = $callback();
-        wp_cache_add($key, maybe_serialize($query), '', 3600);
-
-        return $query;
-    }
-    
-    return unserialize($get_cache);
-}
-
 // Images
 function print_if_alt_params($alt) {
     return (!empty($alt) ? 'alt="' . $alt . '"' : null);

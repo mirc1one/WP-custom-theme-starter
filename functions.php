@@ -93,3 +93,14 @@ function get_featured_image_alt($post_id) {
 		true
 	); 
 }
+
+// a function that lets you add multiple actions at once with the same callback
+function add_actions($actions, $function_to_add, $priority = 10, $args = 1) {
+
+    $actions = explode(' ', $actions);
+    
+    foreach ($actions as $action) {
+        add_action($action, $function_to_add, $priority, $args);
+    }
+
+}

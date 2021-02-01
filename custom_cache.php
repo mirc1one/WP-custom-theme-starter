@@ -94,7 +94,5 @@ function get_redis_keys($key, $group = '') {
     $keys = $redis->keys('*' . $wildcard . '*');
     $redis->close();
 
-    // it pretty much comes as empty array if it doesn't find any
-    // but im gonna leave one extra step to make sure
-    return is_array($keys) ? $keys : array();
+    return (array) $keys;
 }
